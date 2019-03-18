@@ -81,7 +81,7 @@ It depends on the task (cf. below for examples):
 
 ## Run
 
-Each task has a separate folder. Enter each folder you can usually find `utils.py`, `model.py` and `train.py`. The `utils.py` file generate data, and `model.py` build the model. You should run `train.py` to train. The parameters in `train.py` are set by `argparse`. The pre trained models are saved in `weights/`.
+Each task has a separate folder. Enter each folder one can usually find `utils.py`, `model.py` and `train.py`. The `utils.py` generates data, and `model.py` builds the TCN model. You should run `train.py` to train the model. The hyper-parameters in `train.py` are set by `argparse`. The pre-trained models are saved in `weights/`.
 
 ```bash
 cd adding_problem/
