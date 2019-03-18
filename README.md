@@ -35,7 +35,7 @@
 ### Arguments
 `tcn = TemporalConvNet(num_channels, kernel_size, dropout)`
 
-- `num_channels`: list. For example, if `num_channels=[30,40,50,60,70,80]`, the temporal convolution model has 6 levels, the `dilation_rate` of each level is $$[2^0,2^1,2^2,2^3,2^4,2^5]$$, and filters of each level are `30,40,50,60,70,80`.
+- `num_channels`: list. For example, if `num_channels=[30,40,50,60,70,80]`, the temporal convolution model has 6 levels, the `dilation_rate` of each level is $ [2^0,2^1,2^2,2^3,2^4,2^5] $, and filters of each level are `30,40,50,60,70,80`.
 - `kernel_size`: Integer. The size of the kernel to use in each convolutional layer.
 - `dilations`: List. A dilation list. Example is: [1, 2, 4, 8, 16, 32, 64].
 - `dropout`: Float between 0 and 1. Fraction of the input units to drop. The dropout layers is activated in training, and deactivated in testing. Using `y = tcn(x, training=True/False)` to control.
