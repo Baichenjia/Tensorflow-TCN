@@ -9,10 +9,10 @@ import tensorflow.contrib.eager as tfe
 tf.enable_eager_execution()
 
 parser = argparse.ArgumentParser(description='Sequence Modeling - The Word PTB')
-parser.add_argument('--batch_size', type=int, default=32, metavar='N', help='batch size (default: 16)')
-parser.add_argument('--dropout', type=float, default=0.5, help='dropout applied to layers (default: 0.0)')
+parser.add_argument('--batch_size', type=int, default=16, metavar='N', help='batch size (default: 16)')
+parser.add_argument('--dropout', type=float, default=0.45, help='dropout applied to layers (default: 0.0)')
 parser.add_argument('--emb_dropout', type=float, default=0.25, help='dropout applied to layers (default: 0.0)')
-parser.add_argument('--clip', type=float, default=0.4, help='gradient clip, -1 means no clip (default: -1)')
+parser.add_argument('--clip', type=float, default=0.35, help='gradient clip, -1 means no clip (default: -1)')
 parser.add_argument('--epochs', type=int, default=100, help='upper epoch limit (default: 10)')
 parser.add_argument('--ksize', type=int, default=3, help='kernel size (default: 7)')
 parser.add_argument('--emsize', type=int, default=600, help='kernel size (default: 7)')
@@ -61,7 +61,7 @@ learning_rate = tf.Variable(lr, name="learning_rate")
 optimizer = tf.train.GradientDescentOptimizer(learning_rate)
 
 # 
-best_loss = None
+last_loss, best_loss = None, None
 for epoch in range(epochs):
     
     # range把原来的sequence截成多部分，分别训练
@@ -114,11 +114,13 @@ for epoch in range(epochs):
     print("Epoch:", epoch, ", Eval loss:", eval_loss, ", Eval perplexity:", np.exp(eval_loss))
     
     # 当验证集损失不再下降时调整学习率
-    if not best_loss or eval_loss < best_loss:
+    if last_loss is not None and last_loss < eval_loss:
+        learning_rate.assign(learning_rate / 2.0)
+        print("changing learning rate to", learning_rate.numpy()) 
+    last_loss = eval_loss
+
+    if best_loss is None or eval_loss < best_loss:
         model.save_weights("weights/model_weight.h5")
         best_loss = eval_loss
-    else:   # 缩小学习率
-        learning_rate.assign(learning_rate / 2.0)
-        print("changing learning rate to", learning_rate.numpy())
     print("-------\n\n")
     
