@@ -19,7 +19,7 @@ parser.add_argument('--emsize', type=int, default=600, help='kernel size (defaul
 parser.add_argument('--levels', type=int, default=4, help='# of levels (default: 8)')
 parser.add_argument('--seq_len', type=int, default=80, help='sequence length (default: 400)')
 parser.add_argument('--validseqlen', type=int, default=40,help='valid sequence length (default: 40)')
-parser.add_argument('--lr', type=float, default=2., help='initial learning rate (default: 4e-3)')
+parser.add_argument('--lr', type=float, default=4., help='initial learning rate (default: 4e-3)')
 parser.add_argument('--nhid', type=int, default=600, help='number of hidden units per layer (default: 30)')
 args = parser.parse_args()
 
